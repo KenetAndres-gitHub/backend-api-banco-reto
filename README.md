@@ -20,7 +20,12 @@ El proyecto está diseñado para funcionar en aislamiento gracias a **Docker**, 
 Asegúrate de tener instalado [Docker](https://www.docker.com/) en tu máquina.
 
 1. Sitúate en la raíz del repositorio `backend-api`.
-2. Levanta la infraestructura en segundo plano ejecutando:
+2. **Crea tu archivo de variables de entorno:**
+   Copia el archivo de plantilla y configura tus credenciales (especialmente las contraseñas):
+   ```bash
+   cp .env.template .env
+   ```
+3. Levanta la infraestructura en segundo plano ejecutando:
    ```bash
    docker-compose up --build -d
    ```
