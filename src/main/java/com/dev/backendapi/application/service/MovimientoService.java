@@ -1,5 +1,6 @@
 package com.dev.backendapi.application.service;
 
+import com.dev.backendapi.application.dto.MovimientoResponseDTO;
 import com.dev.backendapi.domain.entities.Cuenta;
 import com.dev.backendapi.domain.entities.Movimiento;
 import com.dev.backendapi.domain.repository.CuentaRepository;
@@ -20,7 +21,7 @@ public class MovimientoService {
     private final CuentaRepository cuentaRepository;
 
     @Transactional
-    public Movimiento registrarMovimiento(String numeroCuenta, BigDecimal valor) {
+    public MovimientoResponseDTO registrarMovimiento(String numeroCuenta, BigDecimal valor) {
         Cuenta cuenta = cuentaRepository.findByNumeroCuenta(numeroCuenta)
                 .orElseThrow(() -> new ResourceNotFoundException("Cuenta no encontrada"));
 
@@ -39,6 +40,14 @@ public class MovimientoService {
         movimiento.setSaldo(nuevoSaldo);
         movimiento.setTipoMovimiento(valor.compareTo(BigDecimal.ZERO) > 0 ? "Deposito" : "Retiro");
 
-        return movimientoRepository.save(movimiento);
+        Movimiento guardado = movimientoRepository.save(movimiento);
+
+        return MovimientoResponseDTO.builder()
+                .numeroCuenta(guardado.getCuenta().getNumeroCuenta())
+                .tipoMovimiento(guardado.getTipoMovimiento())
+                .valor(guardado.getValor())
+                .saldoDisponible(guardado.getSaldo())
+                .fecha(guardado.getFecha())
+                .build();
     }
 }
