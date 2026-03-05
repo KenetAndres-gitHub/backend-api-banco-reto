@@ -69,3 +69,10 @@ Para ejecutar el árbol de test completo escribe en terminal:
 # Windows
 .\gradlew test
 ```
+
+## 🧪 Pruebas con Postman
+
+Para facilitar las pruebas de integración y flujos completos, se ha incluido una colección de Postman en el repositorio.
+
+- **Ubicación:** `docs/postman/TCS reto.postman_collection.json`
+- **Instrucciones:** Importa el archivo JSON en tu cliente de Postman para acceder a todos los endpoints pre-configurados.
